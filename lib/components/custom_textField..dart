@@ -4,8 +4,11 @@ class CustomTextFiled extends StatelessWidget {
   final String label;
   final Function onChange;
 
-  const CustomTextFiled({Key? key, required this.label, required this.onChange})
-      : super(key: key);
+  const CustomTextFiled({
+    Key? key,
+    required this.label,
+    required this.onChange,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
