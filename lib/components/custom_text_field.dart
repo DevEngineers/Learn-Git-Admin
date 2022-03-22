@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFiled extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String label;
-  final int? maxLine, minLine;
+  final int? maxLine;
+  final int? minLine;
   final Function onChange;
 
-  const CustomTextFiled({
+  const CustomTextField({
     Key? key,
     required this.label,
     required this.onChange,
