@@ -1,30 +1,41 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/components/button.dart';
+import 'package:learn_git_admin/model/question.dart';
+import 'package:learn_git_admin/provider/question_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../components/custom_text_field.dart';
 
-class addQuiz extends StatefulWidget {
+class AddQuiz extends StatefulWidget {
   static const String routeName = '/addQuiz';
 
+  const AddQuiz({Key? key}) : super(key: key);
+
   @override
-  State<addQuiz> createState() => _addQuizState();
+  State<StatefulWidget> createState() => _AddQuizState();
 }
 
-class _addQuizState extends State<addQuiz> {
+class _AddQuizState extends State<AddQuiz> {
   final _formKey = GlobalKey<FormState>();
-  String? _question;
-  String? _answer;
-  String? dropdownValue;
+  String _question = '';
+  List<String> _answer = [];
+  String _correctAnswer = '';
 
-  void onSubmit() async {
+  void onSubmit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+
+      Question question = Question(
+          id: '',
+          topicId: 'topicId',
+          question: _question,
+          answers: _answer,
+          correctAnswer: _correctAnswer);
+
+      Provider.of<QuestionProvider>(context, listen: false)
+          .addQuestion(question);
     }
   }
-
-  void setStateQ() {}
 
   @override
   Widget build(BuildContext context) {
@@ -44,58 +55,38 @@ class _addQuizState extends State<addQuiz> {
                         label: "Question",
                         maxLine: 2,
                         minLine: 1,
-                        onChange: (String? value) {},
+                        onChange: (String? value) {
+                          setState(() {
+                            _question = value!;
+                          });
+                        },
                       )),
+                  ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: CustomTextFiled(
+                                label: "Answers ${index + 1}",
+                                maxLine: 1,
+                                minLine: 1,
+                                onChange: (String? value) {
+                                  setState(() {
+                                    _answer.insert(index, value!);
+                                  });
+                                }));
+                      }),
                   Padding(
                       padding: const EdgeInsets.all(8),
                       child: CustomTextFiled(
-                          label: "Answers 01",
-                          maxLine: 1,
-                          minLine: 1,
-                          onChange: (String? value) {})),
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: CustomTextFiled(
-                          label: "Answers 02",
+                          label: "Correct Answer ",
                           minLine: 1,
                           maxLine: 1,
-                          onChange: (String? value) {})),
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: CustomTextFiled(
-                          label: "Answers 03",
-                          minLine: 1,
-                          maxLine: 1,
-                          onChange: (String? value) {})),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: DropdownButton<dynamic>(
-                      value: dropdownValue,
-                      items: const <DropdownMenuItem>[
-                        DropdownMenuItem(
-                          value: 'Option 1',
-                          child: Text('Answers 01'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Option 2',
-                          child: Text('Answers 02'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Option 3',
-                          child: Text('Answers 03'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Option 4',
-                          child: Text('Answers 04'),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          dropdownValue = value;
-                        });
-                      },
-                    ),
-                  ),
+                          onChange: (String? value) {
+                            setState(() {
+                              _correctAnswer = value!;
+                            });
+                          })),
                   Padding(
                       padding: const EdgeInsets.all(8),
                       child: Button(
