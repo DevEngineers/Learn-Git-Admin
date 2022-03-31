@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'provider/question_provider.dart';
 import 'screens/home.dart';
 import 'screens/add_quiz.dart';
+import 'screens/view_quiz.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
           initialRoute: Home.routeName,
           routes: {
             Home.routeName: ((context) => const Home()),
-            AddQuiz.routeName: ((context) => const AddQuiz())
+            AddQuiz.routeName: ((context) => const AddQuiz()),
+            ViewQuestion.routeName: ((context) => const ViewQuestion()),
           },
         ));
   }
