@@ -68,9 +68,6 @@ class QuizQuestion extends StatefulWidget {
 class _QuizQuestion extends State<QuizQuestion> {
   @override
   Widget build(BuildContext context) {
-    final _markDownData =
-        widget.question.answers.map((x) => "- $x\n").reduce((x, y) => "$x$y");
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
