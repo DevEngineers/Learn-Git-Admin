@@ -18,10 +18,10 @@ const List<Question> q = [
       correctAnswer: '1')
 ];
 
-class Markdown extends StatelessWidget {
+class AnswersList extends StatelessWidget {
   final String answer;
   final String groupValue;
-  const Markdown({Key? key, required this.answer, required this.groupValue})
+  const AnswersList({Key? key, required this.answer, required this.groupValue})
       : super(key: key);
 
   @override
@@ -93,11 +93,10 @@ class _QuizQuestion extends State<QuizQuestion> {
             shrinkWrap: true,
             itemCount: widget.question.answers.length,
             itemBuilder: (context, index) {
-              return Markdown(
+              return AnswersList(
                 answer: widget.question.answers.elementAt(index),
                 groupValue: '',
               );
-              // Markdown(data: _markDownData),
             },
           ),
         ),
