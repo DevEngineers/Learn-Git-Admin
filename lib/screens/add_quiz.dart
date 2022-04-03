@@ -17,7 +17,7 @@ class AddQuiz extends StatefulWidget {
 class _AddQuizState extends State<AddQuiz> {
   final _formKey = GlobalKey<FormState>();
   String _question = '';
-  List<String> _answer = [];
+  final List<String> _answer = [];
   String _correctAnswer = '';
 
   void onSubmit() {
@@ -26,14 +26,13 @@ class _AddQuizState extends State<AddQuiz> {
 
       Question question = Question(
           id: '',
-          topicId: 'topicId',
+          topicId: '6238c42e523b9f9d1325096e',
           question: _question,
           answers: _answer,
           correctAnswer: _correctAnswer);
 
-      final res = Provider.of<QuestionProvider>(context, listen: false)
+      Provider.of<QuestionProvider>(context, listen: false)
           .addQuestion(question);
-      print(res);
     }
   }
 
@@ -61,19 +60,21 @@ class _AddQuizState extends State<AddQuiz> {
                           });
                         },
                       )),
-                  // ListView.builder(
-                  //     itemCount: 5,
-                  //     itemBuilder: (context, index) {
-                  //       return CustomTextField(
-                  //           label: "Answers ${index + 1}",
-                  //           maxLine: 1,
-                  //           minLine: 1,
-                  //           onChange: (String? value) {
-                  //             setState(() {
-                  //               _answer.insert(index, value!);
-                  //             });
-                  //           });
-                  //     }),
+                  ListView.builder(
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return CustomTextField(
+                            label: "Answers ${index + 1}",
+                            maxLine: 1,
+                            minLine: 1,
+                            onChange: (String? value) {
+                              setState(() {
+                                _answer.insert(index, value!);
+                              });
+                            });
+                      }),
                   Padding(
                       padding: const EdgeInsets.all(8),
                       child: CustomTextField(
