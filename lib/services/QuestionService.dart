@@ -7,8 +7,7 @@ class QuestionService {
   static String endpoint = '${dotenv.env['API_URL']}/question';
   const QuestionService();
 
-  Future<bool?> addQuestion(Set question) async {
-    print('question Service Q : - ${question}');
+  Future<bool?> addQuestion(Question question) async {
     final response = await post(Uri.parse(endpoint),
         headers: {
           'Content-type': 'application/json',

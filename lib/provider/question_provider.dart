@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart';
 import '../model/question.dart';
 import '../services/QuestionService.dart';
 
@@ -13,10 +14,11 @@ class QuestionProvider extends ChangeNotifier {
     getQuestions();
   }
 
-  void addQuestion(Question question) async {
-    print('question provider Q : - ${_questions}');
-    final questions = await _questionService.addQuestion(_questions);
+  Future<bool?> addQuestion(Question question) async {
+    final response = await _questionService.addQuestion(question);
+    _questions.add(question);
     notifyListeners();
+    return response;
   }
 
   void getQuestions() async {
