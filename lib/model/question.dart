@@ -12,4 +12,11 @@ class Question {
     required this.answers,
     required this.correctAnswer,
   });
+
+  Map<String, dynamic> toJson() => {
+        'topicId': topicId,
+        'question': question,
+        'answers': answers,
+        'correctAnswer': correctAnswer
+      };
 }
