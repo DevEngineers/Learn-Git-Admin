@@ -3,7 +3,7 @@ import 'package:learn_git_admin/components/button.dart';
 import 'package:learn_git_admin/model/question.dart';
 import 'package:learn_git_admin/provider/question_provider.dart';
 import 'package:provider/provider.dart';
-import '../components/custom_text_field.dart';
+import 'package:learn_git_admin/components/custom_text_field.dart';
 
 class EditQuiz extends StatefulWidget {
   static const String routeName = '/editQuiz';
@@ -50,7 +50,7 @@ class _EditQuizState extends State<EditQuiz> {
                 children: [
                   Padding(
                       padding: const EdgeInsets.all(8),
-                      child: CustomTextFiled(
+                      child: CustomTextField(
                         label: "Question",
                         maxLine: 2,
                         minLine: 1,
@@ -65,7 +65,7 @@ class _EditQuizState extends State<EditQuiz> {
                       itemBuilder: (context, index) {
                         return Padding(
                             padding: const EdgeInsets.all(8),
-                            child: CustomTextFiled(
+                            child: CustomTextField(
                                 label: "Answers ${index + 1}",
                                 maxLine: 1,
                                 minLine: 1,
@@ -77,7 +77,7 @@ class _EditQuizState extends State<EditQuiz> {
                       }),
                   Padding(
                       padding: const EdgeInsets.all(8),
-                      child: CustomTextFiled(
+                      child: CustomTextField(
                           label: "Correct Answer ",
                           minLine: 1,
                           maxLine: 1,

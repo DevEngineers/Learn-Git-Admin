@@ -1,4 +1,3 @@
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter/material.dart';
 import '../components/custom_text.dart';
 import '../model/question.dart';
