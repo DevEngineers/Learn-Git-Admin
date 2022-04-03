@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_git_admin/screens/add_quiz.dart';
 import '../components/custom_text.dart';
 
 class Home extends StatefulWidget {
@@ -35,7 +36,9 @@ class _Home extends State<Home> {
               MenuItem(
                   title: 'Tutorial Questions',
                   body: '5 Questions',
-                  onPress: () {}),
+                  onPress: () {
+                    Navigator.of(context).pushNamed(AddQuiz.routeName);
+                  }),
               MenuItem(title: 'Users', body: '5 Users', onPress: () {})
             ],
           ),
@@ -71,6 +74,7 @@ class MenuItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: InkWell(
+                onTap: () => onPress(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
