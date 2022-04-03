@@ -5,16 +5,16 @@ import 'package:learn_git_admin/provider/question_provider.dart';
 import 'package:provider/provider.dart';
 import '../components/custom_text_field.dart';
 
-class AddQuiz extends StatefulWidget {
-  static const String routeName = '/addQuiz';
+class EditQuiz extends StatefulWidget {
+  static const String routeName = '/editQuiz';
 
-  const AddQuiz({Key? key}) : super(key: key);
+  const EditQuiz({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _AddQuizState();
+  State<StatefulWidget> createState() => _EditQuizState();
 }
 
-class _AddQuizState extends State<AddQuiz> {
+class _EditQuizState extends State<EditQuiz> {
   final _formKey = GlobalKey<FormState>();
   String _question = '';
   List<String> _answer = [];
@@ -31,9 +31,8 @@ class _AddQuizState extends State<AddQuiz> {
           answers: _answer,
           correctAnswer: _correctAnswer);
 
-      final res = Provider.of<QuestionProvider>(context, listen: false)
+      Provider.of<QuestionProvider>(context, listen: false)
           .addQuestion(question);
-      print(res);
     }
   }
 
@@ -61,19 +60,21 @@ class _AddQuizState extends State<AddQuiz> {
                           });
                         },
                       )),
-                  // ListView.builder(
-                  //     itemCount: 5,
-                  //     itemBuilder: (context, index) {
-                  //       return CustomTextFiled(
-                  //           label: "Answers ${index + 1}",
-                  //           maxLine: 1,
-                  //           minLine: 1,
-                  //           onChange: (String? value) {
-                  //             setState(() {
-                  //               _answer.insert(index, value!);
-                  //             });
-                  //           });
-                  //     }),
+                  ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: CustomTextFiled(
+                                label: "Answers ${index + 1}",
+                                maxLine: 1,
+                                minLine: 1,
+                                onChange: (String? value) {
+                                  setState(() {
+                                    _answer.insert(index, value!);
+                                  });
+                                }));
+                      }),
                   Padding(
                       padding: const EdgeInsets.all(8),
                       child: CustomTextFiled(

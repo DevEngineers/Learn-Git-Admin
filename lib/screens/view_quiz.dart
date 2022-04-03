@@ -23,7 +23,6 @@ class AnswersList extends StatelessWidget {
   final String groupValue;
   const AnswersList({Key? key, required this.answer, required this.groupValue})
       : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
