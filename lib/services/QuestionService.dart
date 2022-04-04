@@ -20,16 +20,28 @@ class QuestionService {
     throw Exception("Error in Getting the Question post");
   }
 
-  Future<List<Question>?> getQuestions() async {
-    // final response = await get(Uri.parse(endpoint).replace(queryParameters: {
-    //   "topic": topicId,
-    // }));
+  Future<Set<Question>?> getQuestions() async {
+    final response = await get(Uri.parse(endpoint), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    });
 
-    // if (response.statusCode == 200) {
-    //   return jsonDecode(response.body)['age'];
-    // }
-    //throw Exception('Error in getting the age');
+    if (response.statusCode == 200) {
+      Set<Question> questionList = {};
+      Set<dynamic> data = jsonDecode(response.body);
 
-    // return q;
+      for (dynamic item in data) {
+        Question answer = Question(
+            id: item['_id'],
+            topicId: item['topicId'],
+            answers: item['answers'],
+            correctAnswer: item['correctAnswer'],
+            question: item['question']);
+        questionList.add(answer);
+      }
+
+      return questionList;
+    }
+    throw Exception('Error in getting the questions');
   }
 }
