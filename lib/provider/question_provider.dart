@@ -23,7 +23,7 @@ class QuestionProvider extends ChangeNotifier {
 
   void getQuestions() async {
     final questions = await _questionService.getQuestions();
-    _questions.addAll(_questions);
+    _questions.addAll(questions!);
     notifyListeners();
   }
 
