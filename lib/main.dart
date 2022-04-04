@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:learn_git_admin/provider/question_provider.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
+import 'package:learn_git_admin/screens/quiz_home.dart';
 import 'package:learn_git_admin/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'screens/home.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
             Home.routeName: ((context) => const Home()),
             AddQuiz.routeName: ((context) => const AddQuiz()),
             ViewQuestion.routeName: ((context) => const ViewQuestion()),
+            QuizHome.routeName: ((context) => const QuizHome()),
           },
         ));
   }
