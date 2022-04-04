@@ -28,16 +28,16 @@ class QuestionService {
 
     if (response.statusCode == 200) {
       Set<Question> questionList = {};
-      Set<dynamic> data = jsonDecode(response.body);
+      List<dynamic> data = jsonDecode(response.body);
 
       for (dynamic item in data) {
-        Question answer = Question(
+        Question question = Question(
             id: item['_id'],
             topicId: item['topicId'],
             answers: item['answers'],
             correctAnswer: item['correctAnswer'],
             question: item['question']);
-        questionList.add(answer);
+        questionList.add(question);
       }
 
       return questionList;
