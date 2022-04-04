@@ -20,6 +20,9 @@ class _AddQuizState extends State<AddQuiz> {
   final List<String> _answer = [];
   String _correctAnswer = '';
 
+  final items = ["Item 01", "Item 02", "Item 03", "Item 04"];
+  String? value;
+
   void onSubmit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -40,63 +43,104 @@ class _AddQuizState extends State<AddQuiz> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Add Quiz')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: CustomTextField(
-                        label: "Question",
-                        maxLine: 2,
-                        minLine: 1,
-                        onChange: (String? value) {
-                          setState(() {
-                            _question = value!;
-                          });
-                        },
-                      )),
-                  ListView.builder(
-                      physics: const ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return CustomTextField(
-                            label: "Answers ${index + 1}",
-                            maxLine: 1,
+      body: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(15.0),
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Container(
+                          margin: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            // border: Border.all(color: Colors.black, width: 4),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                                value: value,
+                                iconSize: 36,
+                                icon: const Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black,
+                                ),
+                                isExpanded: true,
+                                items: items.map(buildMenuItem).toList(),
+                                onChanged: (value) => setState(
+                                      () => this.value = value,
+                                    )),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: CustomTextField(
+                            label: "Question",
+                            maxLine: 2,
                             minLine: 1,
                             onChange: (String? value) {
                               setState(() {
-                                _answer.insert(index, value!);
+                                _question = value!;
                               });
-                            });
-                      }),
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: CustomTextField(
-                          label: "Correct Answer ",
-                          minLine: 1,
-                          maxLine: 1,
-                          onChange: (String? value) {
-                            setState(() {
-                              _correctAnswer = value!;
-                            });
-                          })),
-                  Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Button(
-                        title: 'Submit',
-                        onPress: onSubmit,
-                        width: 250,
-                      )),
-                ],
-              ))
+                            },
+                          )),
+                      ListView.builder(
+                          physics: const ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return CustomTextField(
+                                label: "Answers ${index + 1}",
+                                maxLine: 1,
+                                minLine: 1,
+                                onChange: (String? value) {
+                                  setState(() {
+                                    _answer.insert(index, value!);
+                                  });
+                                });
+                          }),
+                      Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: CustomTextField(
+                              label: "Correct Answer ",
+                              minLine: 1,
+                              maxLine: 1,
+                              onChange: (String? value) {
+                                setState(() {
+                                  _correctAnswer = value!;
+                                });
+                              })),
+                      Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Button(
+                            title: 'Submit',
+                            onPress: onSubmit,
+                            width: 250,
+                          )),
+                    ],
+                  ))
+            ],
+          ),
         ],
       ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      );
 }
