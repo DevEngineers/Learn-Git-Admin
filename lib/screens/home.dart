@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_git_admin/screens/learngit/backendHome.dart';
 
 import '../components/custom_text.dart';
 
@@ -32,7 +33,13 @@ class _Home extends State<Home> {
               MenuItem(
                   title: 'Tutorial Content',
                   body: '5 tutorials',
-                  onPress: () {}),
+                  onPress: () {
+                    print("test");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BackendHome()));
+                  }),
               MenuItem(
                   title: 'Tutorial Questions',
                   body: '5 Questions',
@@ -72,6 +79,7 @@ class MenuItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: InkWell(
+                onTap: () => onPress(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
