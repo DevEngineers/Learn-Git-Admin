@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/screens/add_quiz.dart';
-import 'package:learn_git_admin/screens/quiz_home.dart';
+import 'package:learn_git_admin/screens/question_home.dart';
 import '../components/custom_text.dart';
 
 class Home extends StatefulWidget {
@@ -38,7 +38,7 @@ class _Home extends State<Home> {
                   title: 'Tutorial Questions',
                   body: '5 Questions',
                   onPress: () {
-                    Navigator.of(context).pushNamed(QuizHome.routeName);
+                    Navigator.of(context).pushNamed(QuestionHome.routeName);
                   }),
               MenuItem(title: 'Users', body: '5 Users', onPress: () {})
             ],
