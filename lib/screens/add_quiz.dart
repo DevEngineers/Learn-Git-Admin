@@ -5,16 +5,16 @@ import 'package:learn_git_admin/provider/question_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:learn_git_admin/components/custom_text_field.dart';
 
-class AddQuiz extends StatefulWidget {
-  static const String routeName = '/addQuiz';
+class AddQuestion extends StatefulWidget {
+  static const String routeName = '/add_question';
 
-  const AddQuiz({Key? key}) : super(key: key);
+  const AddQuestion({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _AddQuizState();
+  State<StatefulWidget> createState() => _AddQuestion();
 }
 
-class _AddQuizState extends State<AddQuiz> {
+class _AddQuestion extends State<AddQuestion> {
   final _formKey = GlobalKey<FormState>();
   String _question = '';
   final List<String> _answer = [];
@@ -42,7 +42,7 @@ class _AddQuizState extends State<AddQuiz> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Quiz')),
+      appBar: AppBar(title: const Text('Add Question')),
       body: ListView(
         shrinkWrap: true,
         padding: const EdgeInsets.all(15.0),
@@ -56,9 +56,9 @@ class _AddQuizState extends State<AddQuiz> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                         child: Container(
-                          margin: const EdgeInsets.all(16),
+                          margin: const EdgeInsets.all(8),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 4),
                           decoration: BoxDecoration(
@@ -83,7 +83,7 @@ class _AddQuizState extends State<AddQuiz> {
                         ),
                       ),
                       Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.fromLTRB(2, 0, 2, 10),
                           child: CustomTextField(
                             label: "Question",
                             maxLine: 2,
@@ -99,18 +99,21 @@ class _AddQuizState extends State<AddQuiz> {
                           shrinkWrap: true,
                           itemCount: 5,
                           itemBuilder: (context, index) {
-                            return CustomTextField(
-                                label: "Answers ${index + 1}",
-                                maxLine: 1,
-                                minLine: 1,
-                                onChange: (String? value) {
-                                  setState(() {
-                                    _answer.insert(index, value!);
-                                  });
-                                });
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(2, 8, 2, 10),
+                              child: CustomTextField(
+                                  label: "Answers ${index + 1}",
+                                  maxLine: 1,
+                                  minLine: 1,
+                                  onChange: (String? value) {
+                                    setState(() {
+                                      _answer.insert(index, value!);
+                                    });
+                                  }),
+                            );
                           }),
                       Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.fromLTRB(2, 8, 2, 10),
                           child: CustomTextField(
                               label: "Correct Answer ",
                               minLine: 1,
@@ -121,11 +124,10 @@ class _AddQuizState extends State<AddQuiz> {
                                 });
                               })),
                       Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                           child: Button(
                             title: 'Submit',
                             onPress: onSubmit,
-                            width: 250,
                           )),
                     ],
                   ))
