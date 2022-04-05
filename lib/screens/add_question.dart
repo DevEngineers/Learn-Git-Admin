@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/components/button.dart';
 import 'package:learn_git_admin/model/question.dart';
+import 'package:learn_git_admin/model/route_arguments.dart';
 import 'package:learn_git_admin/provider/question_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:learn_git_admin/components/custom_text_field.dart';
@@ -19,6 +20,18 @@ class _AddQuestion extends State<AddQuestion> {
   String _question = '';
   final List<String> _answer = [];
   String _correctAnswer = '';
+  String _questionID = '';
+  String _topicID = '';
+
+  Future<void> getRouteArguments() async {
+    final RouteArguments arg =
+        ModalRoute.of(context)!.settings.arguments as RouteArguments;
+
+    setState(() {
+      _questionID = arg.questionId;
+      _topicID = arg.topicId;
+    });
+  }
 
   final items = ["Item 01", "Item 02", "Item 03", "Item 04"];
   String? value;
@@ -42,7 +55,7 @@ class _AddQuestion extends State<AddQuestion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Question')),
+      appBar: AppBar(title: const Text('Question')),
       body: ListView(
         shrinkWrap: true,
         padding: const EdgeInsets.all(15.0),
@@ -123,12 +136,23 @@ class _AddQuestion extends State<AddQuestion> {
                                   _correctAnswer = value!;
                                 });
                               })),
-                      Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                          child: Button(
-                            title: 'Submit',
-                            onPress: onSubmit,
-                          )),
+                      if (_questionID.isEmpty) ...{
+                        Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            child: Button(
+                              title: 'Submit',
+                              color: const Color(0xffE78230),
+                              onPress: onSubmit,
+                            )),
+                      } else ...{
+                        Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                            child: Button(
+                              title: 'Update',
+                              color: const Color(0xffE78230),
+                              onPress: onSubmit,
+                            )),
+                      }
                     ],
                   ))
             ],
