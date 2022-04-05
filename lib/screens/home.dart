@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../components/custom_text.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +14,22 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          title: RichText(
+            text: TextSpan(children: [
+              const TextSpan(
+                  text: "Learn",
+                  style: TextStyle(
+                      color: Color(0xffE78230),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+              TextSpan(
+                  text: "Git",
+                  style: TextStyle(
+                      color: Colors.green[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+            ]),
+          ),
           automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
@@ -72,6 +86,7 @@ class MenuItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: InkWell(
+                onTap: () => onPress(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
