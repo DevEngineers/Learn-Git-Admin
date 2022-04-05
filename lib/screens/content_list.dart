@@ -5,14 +5,15 @@ import '../../model/content_model.dart';
 import '../../services/content_api_service.dart';
 import 'content_item_backend.dart';
 
-class BackEndContent extends StatefulWidget {
-  const BackEndContent({Key? key}) : super(key: key);
+class ContentList extends StatefulWidget {
+  static const String routeName = '/content-list';
+  const ContentList({Key? key}) : super(key: key);
 
   @override
-  _BackEndContentState createState() => _BackEndContentState();
+  _ContentListState createState() => _ContentListState();
 }
 
-class _BackEndContentState extends State<BackEndContent> {
+class _ContentListState extends State<ContentList> {
   List<ContentModel> products = List<ContentModel>.empty(growable: true);
   bool isApiCallProcess = false;
   @override

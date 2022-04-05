@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learn_git_admin/screens/learngit/backendHome.dart';
+import 'package:learn_git_admin/screens/content_view.dart';
 
 import '../components/custom_text.dart';
 
@@ -34,11 +34,10 @@ class _Home extends State<Home> {
                   title: 'Tutorial Content',
                   body: '5 tutorials',
                   onPress: () {
-                    print("test");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const BackendHome()));
+                            builder: (context) => const ContentView()));
                   }),
               MenuItem(
                   title: 'Tutorial Questions',

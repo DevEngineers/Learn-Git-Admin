@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-import '../../config.dart';
 import '../model/content_model.dart';
 
 class APIService {
   static var client = http.Client();
+  static String endpoint = '${dotenv.env['API_URL']}';
+  static String productsAPI = 'content';
 
   static Future<List<ContentModel>?> getContent() async {
     Map<String, String> requestHeaders = {
@@ -14,8 +16,8 @@ class APIService {
     };
 
     var url = Uri.http(
-      Config.apiURL,
-      Config.productsAPI,
+      endpoint,
+      productsAPI,
     );
 
     var response = await client.get(
@@ -39,13 +41,13 @@ class APIService {
     bool isEditMode,
     bool isFileSelected,
   ) async {
-    var productURL = Config.productsAPI;
+    var productURL = productsAPI;
 
     if (isEditMode) {
       productURL = productURL + "/" + model.id.toString();
     }
 
-    var url = Uri.http(Config.apiURL, productURL);
+    var url = Uri.http(endpoint, productURL);
 
     var requestMethod = isEditMode ? "PUT" : "POST";
 
@@ -68,8 +70,8 @@ class APIService {
     };
 
     var url = Uri.http(
-      Config.apiURL,
-      Config.productsAPI + "/" + productId,
+      endpoint,
+      productsAPI + "/" + productId,
     );
 
     var response = await client.delete(

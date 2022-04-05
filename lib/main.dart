@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
-import 'package:learn_git_admin/screens/learngit/back_end_content.dart';
-import 'package:learn_git_admin/screens/learngit/content.dart';
-import 'package:learn_git_admin/screens/learngit/content_add_edit.dart';
+import 'package:learn_git_admin/screens/content.dart';
+import 'package:learn_git_admin/screens/content_add_edit.dart';
+import 'package:learn_git_admin/screens/content_list.dart';
+import 'package:learn_git_admin/screens/content_view.dart';
 import 'package:learn_git_admin/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -36,10 +37,11 @@ class MyApp extends StatelessWidget {
           routes: {
             SplashScreen.routeName: ((context) => const SplashScreen()),
             Home.routeName: ((context) => const Home()),
-            '/learn-git': (context) => const BackEndContent(),
-            '/add-product': (context) => const ProductAddEdit(),
-            '/edit-product': (context) => const ProductAddEdit(),
-            '/content': (context) => const Content(),
+            ContentList.routeName: (context) => const ContentList(),
+            ContentView.routeName: (context) => const ContentView(),
+            ProductAddEdit.routeNameAdd: (context) => const ProductAddEdit(),
+            ProductAddEdit.routeName: (context) => const ProductAddEdit(),
+            Content.routeName: (context) => const Content(),
           },
         ));
   }

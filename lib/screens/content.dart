@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../model/content_model.dart';
 
 class Content extends StatelessWidget {
+  static const String routeName = '/content';
   const Content({Key? key}) : super(key: key);
 
   @override

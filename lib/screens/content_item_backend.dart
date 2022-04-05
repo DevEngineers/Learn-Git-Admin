@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/content_model.dart';
+import '../model/content_model.dart';
 
 class BackEndItem extends StatelessWidget {
   final ContentModel? model;

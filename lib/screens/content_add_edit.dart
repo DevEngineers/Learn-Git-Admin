@@ -3,10 +3,13 @@ import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import 'package:snippet_coder_utils/hex_color.dart';
 
-import '../../model/content_model.dart';
-import '../../services/content_api_service.dart';
+import '../model/content_model.dart';
+import '../services/content_api_service.dart';
+import 'content_view.dart';
 
 class ProductAddEdit extends StatefulWidget {
+  static const String routeName = '/edit-product';
+  static const String routeNameAdd = '/add-product';
   const ProductAddEdit({Key? key}) : super(key: key);
 
   @override
@@ -151,7 +154,7 @@ class _ProductAddEditState extends State<ProductAddEdit> {
                       if (response) {
                         Navigator.pushNamedAndRemoveUntil(
                           context,
-                          '/',
+                          ContentView.routeName,
                           (route) => false,
                         );
                       } else {
