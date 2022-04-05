@@ -19,17 +19,17 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          // helperText: label,
           labelText: label,
           fillColor: Colors.white,
           filled: true,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white, width: 2.0),
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white, width: 2.0),
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
         ),
         minLines: minLine,
