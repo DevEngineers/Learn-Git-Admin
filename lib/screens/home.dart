@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/screens/content_view.dart';
-
+import 'package:provider/provider.dart';
 import '../components/custom_text.dart';
+import '../providers/content_provider.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = '/home';
@@ -14,6 +15,8 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    int tutorialCount = Provider.of<ContentProvider>(context).contents.length;
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Home'),
@@ -25,14 +28,14 @@ class _Home extends State<Home> {
             children: [
               const Padding(
                   padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
-                  child: Text('Learn Git Admin',
+                  child: Text('LearnGit Admin',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 32,
                           fontWeight: FontWeight.bold))),
               MenuItem(
                   title: 'Tutorial Content',
-                  body: '5 tutorials',
+                  body: '${tutorialCount.toString()} tutorials',
                   onPress: () {
                     Navigator.push(
                         context,

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/screens/home.dart';
+import 'package:provider/provider.dart';
+import '../providers/content_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -23,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initializeProviders() {
     // Add providers here to initialize them.
+    Provider.of<ContentProvider>(context);
   }
 
   @override

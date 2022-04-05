@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../model/content_model.dart';
 
 class BackEndItem extends StatelessWidget {
@@ -17,12 +16,12 @@ class BackEndItem extends StatelessWidget {
     return Card(
       elevation: 0,
       margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      child: Container(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      color: const Color(0xff30445C),
+      child: SizedBox(
         width: 200,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(50),
-        ),
         child: InkWell(
           onTap: () {
             Navigator.of(context).pushNamed(
@@ -38,7 +37,7 @@ class BackEndItem extends StatelessWidget {
 
   Widget cartItem(context) {
     return SizedBox(
-      height: 140,
+      height: 130,
       child: ListView(
         children: [
           Padding(
@@ -50,8 +49,9 @@ class BackEndItem extends StatelessWidget {
                 Text(
                   model!.title!,
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
+                    fontSize: 22,
                   ),
                 ),
                 const SizedBox(
@@ -60,12 +60,12 @@ class BackEndItem extends StatelessWidget {
                 Text(
                   "${model!.content}",
                   maxLines: 2,
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width - 180,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

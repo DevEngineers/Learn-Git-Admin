@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-import 'package:snippet_coder_utils/hex_color.dart';
-
 import '../model/content_model.dart';
-import '../services/content_api_service.dart';
+import '../services/ContentService.dart';
 import 'content_view.dart';
 
 class ProductAddEdit extends StatefulWidget {
@@ -29,10 +27,9 @@ class _ProductAddEditState extends State<ProductAddEdit> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Git title and content'),
+          title: const Text('Add Content'),
           elevation: 0,
         ),
-        backgroundColor: Colors.grey[200],
         body: ProgressHUD(
           child: Form(
             key: globalFormKey,
@@ -73,28 +70,25 @@ class _ProductAddEditState extends State<ProductAddEdit> {
               top: 10,
             ),
             child: FormHelper.inputFieldWidget(
-              context,
-              "title",
-              "Article title",
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return 'ProductName can\'t be empty.';
-                }
+                context, "title", "Article title", (onValidateVal) {
+              if (onValidateVal.isEmpty) {
+                return 'ContentName can\'t be empty.';
+              }
 
-                return null;
-              },
-              (onSavedVal) => {
-                productModel!.title = onSavedVal,
-              },
-              initialValue: productModel!.title ?? "",
-              obscureText: false,
-              borderFocusColor: Colors.black,
-              borderColor: Colors.black,
-              textColor: Colors.black,
-              hintColor: Colors.black.withOpacity(0.7),
-              borderRadius: 10,
-              showPrefixIcon: false,
-            ),
+              return null;
+            },
+                (onSavedVal) => {
+                      productModel!.title = onSavedVal,
+                    },
+                initialValue: productModel!.title ?? "",
+                obscureText: false,
+                borderFocusColor: Colors.black,
+                borderColor: Colors.black,
+                textColor: Colors.black,
+                hintColor: Colors.black.withOpacity(0.7),
+                borderRadius: 10,
+                showPrefixIcon: false,
+                backgroundColor: Colors.white),
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -102,81 +96,76 @@ class _ProductAddEditState extends State<ProductAddEdit> {
               top: 10,
             ),
             child: FormHelper.inputFieldWidget(
-              context,
-              "productDescription",
-              "main contain",
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return 'contain can\'t be empty.';
-                }
+                context, "productDescription", "main contain", (onValidateVal) {
+              if (onValidateVal.isEmpty) {
+                return 'content can\'t be empty.';
+              }
 
-                return null;
-              },
-              (onSavedVal) => {
-                productModel!.content = onSavedVal,
-              },
-              initialValue: productModel!.content ?? "",
-              isMultiline: true,
-              multilineRows: 10,
-              obscureText: false,
-              borderFocusColor: Colors.black,
-              borderColor: Colors.black,
-              textColor: Colors.black,
-              hintColor: Colors.black.withOpacity(0.7),
-              borderRadius: 10,
-              showPrefixIcon: false,
-            ),
+              return null;
+            },
+                (onSavedVal) => {
+                      productModel!.content = onSavedVal,
+                    },
+                initialValue: productModel!.content ?? "",
+                isMultiline: true,
+                multilineRows: 10,
+                obscureText: false,
+                borderFocusColor: Colors.black,
+                borderColor: Colors.black,
+                textColor: Colors.black,
+                hintColor: Colors.black.withOpacity(0.7),
+                borderRadius: 10,
+                showPrefixIcon: false,
+                backgroundColor: Colors.white),
           ),
           const SizedBox(
             height: 20,
           ),
           Center(
-            child: FormHelper.submitButton(
-              "Save",
-              () {
-                if (validateAndSave()) {
-                  // print(productModel!.toJson());
+            child: FormHelper.submitButton("Save", () {
+              if (validateAndSave()) {
+                // print(productModel!.toJson());
 
-                  setState(() {
-                    isApiCallProcess = true;
-                  });
+                setState(() {
+                  isApiCallProcess = true;
+                });
 
-                  APIService.saveContent(
-                    productModel!,
-                    isEditMode,
-                    isImageSelected,
-                  ).then(
-                    (response) {
-                      setState(() {
-                        isApiCallProcess = false;
-                      });
+                APIService.saveContent(
+                  productModel!,
+                  isEditMode,
+                  isImageSelected,
+                ).then(
+                  (response) {
+                    setState(() {
+                      isApiCallProcess = false;
+                    });
 
-                      if (response) {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          ContentView.routeName,
-                          (route) => false,
-                        );
-                      } else {
-                        FormHelper.showSimpleAlertDialog(
-                          context,
-                          'Git App',
-                          "Error occur",
-                          "OK",
-                          () {
-                            Navigator.of(context).pop();
-                          },
-                        );
-                      }
-                    },
-                  );
-                }
-              },
-              btnColor: HexColor("283B71"),
-              borderColor: Colors.white,
-              txtColor: Colors.white,
-              borderRadius: 10,
-            ),
+                    if (response) {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        ContentView.routeName,
+                        (route) => false,
+                      );
+                    } else {
+                      FormHelper.showSimpleAlertDialog(
+                        context,
+                        'Git App',
+                        "Error occur",
+                        "OK",
+                        () {
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    }
+                  },
+                );
+              }
+            },
+                btnColor: const Color(0xffE78230),
+                borderColor: const Color(0xffE78230),
+                txtColor: Colors.white,
+                borderRadius: 10,
+                width: MediaQuery.of(context).size.width - 40),
           ),
           const SizedBox(
             height: 20,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:learn_git_admin/components/button.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-
 import '../../model/content_model.dart';
-import '../../services/content_api_service.dart';
+import '../services/ContentService.dart';
 import 'content_item_backend.dart';
 
 class ContentList extends StatefulWidget {
@@ -24,7 +24,6 @@ class _ContentListState extends State<ContentList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       body: ProgressHUD(
         // child: productList(products),
         child: loadProducts(),
@@ -62,25 +61,17 @@ class _ContentListState extends State<ContentList> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.white,
-                  primary: Colors.green,
-                  minimumSize: const Size(88, 36),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/add-product',
-                  );
-                },
-                child: const Text('Add contain'),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Button(
+                    title: 'Add content',
+                    color: const Color(0xffE78230),
+                    onPress: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/add-product',
+                      );
+                    }),
               ),
               ListView.builder(
                 shrinkWrap: true,

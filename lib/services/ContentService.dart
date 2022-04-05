@@ -10,13 +10,14 @@ import '../model/content_model.dart';
 class APIService {
   static var client = http.Client();
   static String endpoint = '${dotenv.env['API_URL']}';
+
   static String productsAPI = 'content';
 
   static Future<List<ContentModel>?> getContent() async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-
+    
     var url = Uri.http(
       endpoint,
       productsAPI,
