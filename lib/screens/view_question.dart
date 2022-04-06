@@ -16,13 +16,27 @@ class ViewQuestion extends StatefulWidget {
 }
 
 class _ViewQuestion extends State<ViewQuestion> {
-  String topicId = '6238c42e523b9f9d1325096e';
+  String topic = '';
+  String topicId = '';
+
+  Future<void> getRouteArguments() async {
+    final RouteArguments arg =
+        ModalRoute.of(context)!.settings.arguments as RouteArguments;
+
+    setState(() {
+      topic = arg.topic;
+      topicId = arg.topicId;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    getRouteArguments();
     final Set<Question> _questions =
         Provider.of<QuestionProvider>(context).getQuestionsByTopic(topicId);
+
     print("QUESTION IN VIEW : ${_questions}");
+
     return Scaffold(
         appBar: AppBar(title: const Text('Questions')),
         body: SingleChildScrollView(
