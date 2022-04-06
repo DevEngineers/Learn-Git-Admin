@@ -34,4 +34,8 @@ class QuestionProvider extends ChangeNotifier {
         .toList();
     return questions.toSet();
   }
+
+  Question getQuestionsByQuestionID(String questionId) {
+    return _questions.singleWhere((element) => element.id == questionId);
+  }
 }

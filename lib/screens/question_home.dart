@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/components/button.dart';
-import 'package:learn_git_admin/screens/add_quiz.dart';
-import 'package:learn_git_admin/screens/view_quiz.dart';
+import 'package:learn_git_admin/screens/add_question.dart';
+import 'package:learn_git_admin/screens/view_question.dart';
 import '../components/custom_text.dart';
 
 class QuestionHome extends StatefulWidget {
@@ -25,7 +25,7 @@ class _QuestionHome extends State<QuestionHome> {
                 title: "Add Question",
                 onPress: () {
                   Navigator.of(context).pushNamed(
-                    AddQuiz.routeName,
+                    AddQuestion.routeName,
                   );
                 },
                 color: const Color(0xffE78230),
@@ -41,53 +41,54 @@ class _QuestionHome extends State<QuestionHome> {
                     fontWeight: FontWeight.w600),
               ),
             ),
-            Flexible(
-                child: GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+            Column(
               children: [
                 QuestionMenuItem(
-                  name: 'Content Heading',
+                  title: 'Content Heading',
                   onPress: () {
                     Navigator.of(context).pushNamed(
                       ViewQuestion.routeName,
                     );
                   },
+                  body: '',
                 ),
                 QuestionMenuItem(
-                  name: 'Content Heading',
+                  title: 'Content Heading',
                   onPress: () {
                     Navigator.of(context).pushNamed(
                       ViewQuestion.routeName,
                     );
                   },
                   icon: Icons.cast_for_education,
+                  body: '',
                 )
               ],
-            ))
+            ),
           ],
         ));
   }
 }
 
 class QuestionMenuItem extends StatelessWidget {
-  final String name;
+  final String title;
+  final String body;
   final Function onPress;
   final IconData? icon;
 
   const QuestionMenuItem({
     Key? key,
-    required this.name,
     required this.onPress,
     this.icon,
+    required this.body,
+    required this.title,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return SizedBox(
-        width: width / 2,
-        height: 50,
+        width: width,
+        height: 150,
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Card(
@@ -99,27 +100,36 @@ class QuestionMenuItem extends StatelessWidget {
               child: InkWell(
                 onTap: () => onPress(),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    ),
                     Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        child: CustomText(
-                            text: name,
-                            type: 'headText',
+                      padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+                      child: CustomText(
+                          text: title,
+                          type: 'title',
+                          color: 'white',
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                          child: CustomText(
+                            text: body,
+                            type: 'bodyText',
                             color: 'white',
-                            fontWeight: FontWeight.w600)),
+                          ),
+                        )),
                     const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 2, 5, 0),
-                        child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Icon(
-                              Icons.arrow_circle_right_sharp,
-                              size: 45,
-                              color: Color(0xffE78230),
-                            ))),
+                      padding: EdgeInsets.fromLTRB(0, 2, 5, 0),
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.arrow_circle_right_sharp,
+                            size: 45,
+                            color: Color(0xffE78230),
+                          )),
+                    )
                   ],
                 ),
               )),
