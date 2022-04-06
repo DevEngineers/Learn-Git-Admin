@@ -25,10 +25,6 @@ class _AddQuestion extends State<AddQuestion> {
   String _topicID = '';
   String _topic = '';
 
-  final _questionController = TextEditingController();
-  final List<TextEditingController> _answerController = [];
-  final _correctAnswerController = TextEditingController();
-
   Future<void> getRouteArguments() async {
     final RouteArguments arg =
         ModalRoute.of(context)!.settings.arguments as RouteArguments;
@@ -40,14 +36,11 @@ class _AddQuestion extends State<AddQuestion> {
       print("QUESTION : ${qus.answers}");
 
       setState(() {
-        _questionController.text = qus.question;
-        // for (int i = 0; i < qus.answers.length; i++) {
-        //   _answerController[i] = qus.answers[i];
-        // }
-        // _answerController = qus.answers;
-        _correctAnswerController.text = qus.correctAnswer;
+        _question = qus.question;
+        _answer = qus.answers;
+        _correctAnswer = qus.correctAnswer;
         _questionID = arg.questionId;
-        _topicID = arg.topicId;
+        _topicID = qus.topicId;
         _topic = 'xcxcxxcx';
       });
     }
@@ -100,7 +93,6 @@ class _AddQuestion extends State<AddQuestion> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(12),
-                              // border: Border.all(color: Colors.black, width: 4),
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
@@ -130,13 +122,13 @@ class _AddQuestion extends State<AddQuestion> {
                       Padding(
                           padding: const EdgeInsets.fromLTRB(2, 0, 2, 10),
                           child: CustomTextField(
-                            controller: _questionController,
+                            initialValue: _question,
                             label: "Question",
                             maxLine: 2,
                             minLine: 1,
-                            onChange: () {
+                            onChange: (String? value) {
                               setState(() {
-                                _question = _questionController.text;
+                                _question = value!;
                               });
                             },
                           )),
@@ -148,13 +140,15 @@ class _AddQuestion extends State<AddQuestion> {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(2, 8, 2, 10),
                               child: CustomTextField(
-                                controller: _correctAnswerController,
+                                initialValue: _questionID == ''
+                                    ? ''
+                                    : _answer[index].toString(),
                                 label: "Answers ${index + 1}",
                                 maxLine: 1,
                                 minLine: 1,
-                                onChange: () {
+                                onChange: (String? value) {
                                   setState(() {
-                                    _answer.insert(index, _answerController);
+                                    _answer.insert(index, value);
                                   });
                                 },
                               ),
@@ -163,13 +157,13 @@ class _AddQuestion extends State<AddQuestion> {
                       Padding(
                           padding: const EdgeInsets.fromLTRB(2, 8, 2, 10),
                           child: CustomTextField(
-                            controller: _correctAnswerController,
+                            initialValue: _correctAnswer,
                             label: "Correct Answer ",
                             minLine: 1,
                             maxLine: 1,
-                            onChange: () {
+                            onChange: (String? value) {
                               setState(() {
-                                _correctAnswer = _correctAnswerController.text;
+                                _correctAnswer = value!;
                               });
                             },
                           )),
