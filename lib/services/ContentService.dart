@@ -17,14 +17,9 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    
-    var url = Uri.http(
-      endpoint,
-      productsAPI,
-    );
 
     var response = await client.get(
-      url,
+      Uri.parse(endpoint + "/" + productsAPI),
       headers: requestHeaders,
     );
 
@@ -44,26 +39,36 @@ class APIService {
     bool isEditMode,
     bool isFileSelected,
   ) async {
-    var productURL = productsAPI;
-
     if (isEditMode) {
-      productURL = productURL + "/" + model.id.toString();
-    }
+      final response = await client.put(
+          Uri.parse(endpoint + "/" + productsAPI).replace(queryParameters: {
+            "id": model.id.toString(),
+          }),
+          headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: json.encode(model));
 
-    var url = Uri.http(endpoint, productURL);
-
-    var requestMethod = isEditMode ? "PUT" : "POST";
-
-    var request = http.MultipartRequest(requestMethod, url);
-    request.fields["title"] = model.title!;
-    request.fields["content"] = model.content!.toString();
-
-    var response = await request.send();
-
-    if (response.statusCode == 200) {
-      return true;
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
     } else {
-      return false;
+      final response =
+          await client.post(Uri.parse(endpoint + "/" + productsAPI),
+              headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+              },
+              body: json.encode(model));
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -72,13 +77,10 @@ class APIService {
       'Content-Type': 'application/json',
     };
 
-    var url = Uri.http(
-      endpoint,
-      productsAPI + "/" + productId,
-    );
-
     var response = await client.delete(
-      url,
+      Uri.parse(endpoint + "/" + productsAPI).replace(queryParameters: {
+        "id": productId,
+      }),
       headers: requestHeaders,
     );
 
