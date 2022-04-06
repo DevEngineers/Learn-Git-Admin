@@ -3,6 +3,7 @@ import 'package:learn_git_admin/components/button.dart';
 import 'package:learn_git_admin/model/content_model.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
+import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/add_question.dart';
 import 'package:learn_git_admin/screens/view_question.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +76,7 @@ class _QuestionHome extends State<QuestionHome> {
                                 _content.elementAt(index).id.toString()),
                           );
                         },
-                        body: '',
+                        body: _content.elementAt(index).id.toString(),
                       );
                     },
                   ),
@@ -106,6 +107,8 @@ class QuestionMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    int questionCount =
+        Provider.of<QuestionProvider>(context).getQuestionsByTopic(body).length;
     return SizedBox(
       width: width,
       height: 150,
@@ -135,7 +138,7 @@ class QuestionMenuItem extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
                       child: CustomText(
-                        text: body,
+                        text: '${questionCount.toString()} Questions',
                         type: 'bodyText',
                         color: 'white',
                       ),
