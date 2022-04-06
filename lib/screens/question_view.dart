@@ -35,8 +35,6 @@ class _ViewQuestion extends State<ViewQuestion> {
     final Set<Question> _questions =
         Provider.of<QuestionProvider>(context).getQuestionsByTopic(topicId);
 
-    print("QUESTION IN VIEW : ${_questions}");
-
     return Scaffold(
         appBar: AppBar(title: const Text('Questions')),
         body: SingleChildScrollView(
