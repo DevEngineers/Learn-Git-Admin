@@ -44,4 +44,32 @@ class QuestionService {
     }
     throw Exception('Error in getting the questions');
   }
+
+  Future<bool?> updateQuestion(Question question) async {
+    final response = await put(Uri.parse(endpoint),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode(question));
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    throw Exception('Error in updating the answers');
+  }
+
+  Future<bool?> deleteQuestionByID(String questionID) async {
+    final response = await delete(Uri.parse(endpoint),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode(questionID));
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    throw Exception('Error in getting the age');
+  }
 }
