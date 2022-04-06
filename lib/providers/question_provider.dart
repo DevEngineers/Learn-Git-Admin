@@ -38,4 +38,35 @@ class QuestionProvider extends ChangeNotifier {
   Question getQuestionsByQuestionID(String questionId) {
     return _questions.singleWhere((element) => element.id == questionId);
   }
+
+  Future<bool?> updateQuestion(Question questions) async {
+    final response = await _questionService.updateQuestion(questions);
+
+    if (response == true) {
+      final storedQuestionIndex =
+          _questions.singleWhere((question) => question.id == questions.id);
+
+      if (storedQuestionIndex != -1) {
+        _questions.remove(storedQuestionIndex);
+        _questions.add(questions);
+      }
+    }
+    notifyListeners();
+    return response;
+  }
+
+  Future<bool?> deleteQuestion(Question questions) async {
+    final response = await _questionService.deleteQuestionByID(questions);
+
+    if (response == true) {
+      final storedQuestionIndex =
+          _questions.singleWhere((question) => question.id == questions.id);
+
+      if (storedQuestionIndex != -1) {
+        _questions.remove(storedQuestionIndex);
+      }
+    }
+    notifyListeners();
+    return response;
+  }
 }
