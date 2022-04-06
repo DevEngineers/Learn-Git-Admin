@@ -4,8 +4,8 @@ import 'package:learn_git_admin/model/content_model.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
 import 'package:learn_git_admin/providers/question_provider.dart';
-import 'package:learn_git_admin/screens/add_question.dart';
-import 'package:learn_git_admin/screens/view_question.dart';
+import 'package:learn_git_admin/screens/question_add_edit.dart';
+import 'package:learn_git_admin/screens/question_view.dart';
 import 'package:provider/provider.dart';
 import '../components/custom_text.dart';
 
