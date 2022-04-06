@@ -70,7 +70,7 @@ class _ProductAddEditState extends State<ProductAddEdit> {
               top: 10,
             ),
             child: FormHelper.inputFieldWidget(
-                context, "title", "Article title", (onValidateVal) {
+                context, "title", "Tutorial title", (onValidateVal) {
               if (onValidateVal.isEmpty) {
                 return 'ContentName can\'t be empty.';
               }
@@ -96,7 +96,7 @@ class _ProductAddEditState extends State<ProductAddEdit> {
               top: 10,
             ),
             child: FormHelper.inputFieldWidget(
-                context, "productDescription", "main contain", (onValidateVal) {
+                context, "contentDescription", "Main Content", (onValidateVal) {
               if (onValidateVal.isEmpty) {
                 return 'content can\'t be empty.';
               }
