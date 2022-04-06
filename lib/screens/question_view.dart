@@ -42,12 +42,15 @@ class _ViewQuestion extends State<ViewQuestion> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-                padding: const EdgeInsets.all(8),
-                child: CustomText(
-                  text: topic,
-                  type: 'headText',
-                )),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: CustomText(
+                    text: topic,
+                    type: 'headText',
+                  )),
+            ),
             ListView.builder(
               physics: const ClampingScrollPhysics(),
               shrinkWrap: true,
@@ -79,7 +82,10 @@ class QuizQuestion extends StatefulWidget {
 }
 
 class _QuizQuestion extends State<QuizQuestion> {
-  void onDelete() {}
+  void onDelete(Question question) {
+    var result = Provider.of<QuestionProvider>(context, listen: false)
+        .deleteQuestion(question);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +107,9 @@ class _QuizQuestion extends State<QuizQuestion> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 0, 2),
                 child: CustomText(
-                    text: widget.question.question, type: 'bodyText'),
+                  text: widget.question.question,
+                  type: 'bodyText',
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8),
@@ -128,7 +136,9 @@ class _QuizQuestion extends State<QuizQuestion> {
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                     child: Button(
                       title: 'Delete',
-                      onPress: onDelete,
+                      onPress: () {
+                        onDelete(widget.question);
+                      },
                       color: const Color.fromARGB(255, 237, 33, 33),
                       width: width / 2 - 30,
                     ),
