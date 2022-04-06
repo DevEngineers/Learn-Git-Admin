@@ -27,7 +27,7 @@ class _QuestionHome extends State<QuestionHome> {
   Widget build(BuildContext context) {
     final Set<ContentModel> _content =
         Provider.of<ContentProvider>(context).contents;
-    print("QUESTION HOME CONTENT : $_content");
+    // print("QUESTION HOME CONTENT : $_content");
     return Scaffold(
       appBar: AppBar(title: const Text('Tutorial Questions')),
       body: SingleChildScrollView(
@@ -111,7 +111,7 @@ class QuestionMenuItem extends StatelessWidget {
         Provider.of<QuestionProvider>(context).getQuestionsByTopic(body).length;
     return SizedBox(
       width: width,
-      height: 150,
+      // height: 150,
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: Card(
@@ -144,7 +144,7 @@ class QuestionMenuItem extends StatelessWidget {
                       ),
                     )),
                 const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 2, 5, 0),
+                  padding: EdgeInsets.fromLTRB(0, 2, 5, 7),
                   child: Align(
                       alignment: Alignment.centerRight,
                       child: Icon(
