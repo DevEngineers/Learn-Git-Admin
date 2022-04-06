@@ -20,7 +20,7 @@ class AddQuestion extends StatefulWidget {
 
 class _AddQuestion extends State<AddQuestion> {
   final _formKey = GlobalKey<FormState>();
-  late final Set<ContentModel> _content;
+  List<ContentModel> _content = [];
   String _question = '';
   List<dynamic> _answer = [];
   String _correctAnswer = '';
@@ -53,10 +53,9 @@ class _AddQuestion extends State<AddQuestion> {
   }
 
   void getContents() {
-    _content = Provider.of<ContentProvider>(context).contents;
+    _content = Provider.of<ContentProvider>(context).contents.toList();
   }
 
-  final items = ["Item 01", "Item 02", "Item 03", "Item 04"];
   String? valueTopicID;
 
   void onSubmit() {
@@ -65,7 +64,7 @@ class _AddQuestion extends State<AddQuestion> {
 
       Question question = Question(
           id: '',
-          topicId: '6238c42e523b9f9d1325096e',
+          topicId: valueTopicID.toString(),
           question: _question,
           answers: _answer,
           correctAnswer: _correctAnswer);
