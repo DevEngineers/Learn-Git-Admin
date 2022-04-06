@@ -6,8 +6,8 @@ import 'package:learn_git_admin/screens/question_home.dart';
 import 'package:learn_git_admin/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'screens/home.dart';
-import 'screens/add_quiz.dart';
-import 'screens/view_quiz.dart';
+import 'screens/add_question.dart';
+import 'screens/view_question.dart';
 
 void main() async {
   await dotenv.load();
