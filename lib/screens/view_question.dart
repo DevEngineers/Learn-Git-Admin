@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/components/button.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
-import 'package:learn_git_admin/provider/question_provider.dart';
+import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/add_question.dart';
 import 'package:provider/provider.dart';
 import '../components/custom_text.dart';
@@ -22,7 +22,7 @@ class _ViewQuestion extends State<ViewQuestion> {
   Widget build(BuildContext context) {
     final Set<Question> _questions =
         Provider.of<QuestionProvider>(context).getQuestionsByTopic(topicId);
-
+    print("QUESTION IN VIEW : ${_questions}");
     return Scaffold(
         appBar: AppBar(title: const Text('Questions')),
         body: SingleChildScrollView(
