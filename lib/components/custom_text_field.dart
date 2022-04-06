@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLine;
   final int? minLine;
   final Function onChange;
+  final TextEditingController controller;
 
   const CustomTextField({
     Key? key,
@@ -12,11 +13,13 @@ class CustomTextField extends StatelessWidget {
     required this.onChange,
     this.maxLine,
     this.minLine,
+    required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: label,
