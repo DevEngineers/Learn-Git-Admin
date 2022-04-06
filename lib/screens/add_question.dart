@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/components/button.dart';
 import 'package:learn_git_admin/components/custom_text.dart';
+import 'package:learn_git_admin/model/content_model.dart';
 import 'package:learn_git_admin/model/question.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
+import 'package:learn_git_admin/providers/content_provider.dart';
 import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:learn_git_admin/components/custom_text_field.dart';
@@ -18,6 +20,7 @@ class AddQuestion extends StatefulWidget {
 
 class _AddQuestion extends State<AddQuestion> {
   final _formKey = GlobalKey<FormState>();
+  late final Set<ContentModel> _content;
   String _question = '';
   List<dynamic> _answer = [];
   String _correctAnswer = '';
@@ -33,6 +36,9 @@ class _AddQuestion extends State<AddQuestion> {
       final Question qus = Provider.of<QuestionProvider>(context, listen: false)
           .getQuestionsByQuestionID(arg.questionId);
 
+      final ContentModel content = Provider.of<ContentProvider>(context)
+          .getContentByContentID(arg.topicId);
+
       print("QUESTION : ${qus.answers}");
 
       setState(() {
@@ -41,13 +47,17 @@ class _AddQuestion extends State<AddQuestion> {
         _correctAnswer = qus.correctAnswer;
         _questionID = arg.questionId;
         _topicID = qus.topicId;
-        _topic = 'xcxcxxcx';
+        _topic = content.title!;
       });
     }
   }
 
+  void getContents() {
+    _content = Provider.of<ContentProvider>(context).contents;
+  }
+
   final items = ["Item 01", "Item 02", "Item 03", "Item 04"];
-  String? value;
+  String? valueTopicID;
 
   void onSubmit() {
     if (_formKey.currentState!.validate()) {
@@ -68,6 +78,7 @@ class _AddQuestion extends State<AddQuestion> {
   @override
   Widget build(BuildContext context) {
     getRouteArguments();
+    getContents();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Question')),
@@ -96,16 +107,16 @@ class _AddQuestion extends State<AddQuestion> {
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
-                                  value: value,
+                                  value: valueTopicID,
                                   iconSize: 36,
                                   icon: const Icon(
                                     Icons.arrow_drop_down,
                                     color: Colors.black,
                                   ),
                                   isExpanded: true,
-                                  items: items.map(buildMenuItem).toList(),
+                                  items: _content.map(buildMenuItem).toList(),
                                   onChanged: (value) => setState(
-                                        () => this.value = value,
+                                        () => valueTopicID = value,
                                       )),
                             ),
                           ),
@@ -184,10 +195,11 @@ class _AddQuestion extends State<AddQuestion> {
     );
   }
 
-  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        value: item,
+  DropdownMenuItem<String> buildMenuItem(ContentModel contentModel) =>
+      DropdownMenuItem(
+        value: contentModel.id.toString(),
         child: Text(
-          item,
+          contentModel.title.toString(),
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
       );
