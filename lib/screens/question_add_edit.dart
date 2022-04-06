@@ -6,6 +6,7 @@ import 'package:learn_git_admin/model/question.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
 import 'package:learn_git_admin/providers/question_provider.dart';
+import 'package:learn_git_admin/screens/question_view.dart';
 import 'package:provider/provider.dart';
 import 'package:learn_git_admin/components/custom_text_field.dart';
 
@@ -70,6 +71,9 @@ class _AddQuestion extends State<AddQuestion> {
 
         Provider.of<QuestionProvider>(context, listen: false)
             .addQuestion(question);
+        Navigator.of(context).pushNamed(ViewQuestion.routeName,
+            arguments:
+                RouteArguments(_questionID, _topic, valueTopicID.toString()));
       } else {
         Question question = Question(
             id: _questionID,
@@ -80,6 +84,8 @@ class _AddQuestion extends State<AddQuestion> {
 
         Provider.of<QuestionProvider>(context, listen: false)
             .updateQuestion(question);
+        Navigator.of(context).pushNamed(ViewQuestion.routeName,
+            arguments: RouteArguments(_questionID, _topic, _topicID));
       }
     }
   }

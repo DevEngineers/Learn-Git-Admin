@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/components/button.dart';
+import 'package:learn_git_admin/model/content_model.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
+import 'package:learn_git_admin/providers/content_provider.dart';
 import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/question_add_edit.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,7 @@ class ViewQuestion extends StatefulWidget {
 }
 
 class _ViewQuestion extends State<ViewQuestion> {
+  String questionID = '';
   String topic = '';
   String topicId = '';
 
@@ -24,6 +27,7 @@ class _ViewQuestion extends State<ViewQuestion> {
         ModalRoute.of(context)!.settings.arguments as RouteArguments;
 
     setState(() {
+      questionID = arg.questionId;
       topic = arg.topic;
       topicId = arg.topicId;
     });
@@ -83,8 +87,15 @@ class QuizQuestion extends StatefulWidget {
 
 class _QuizQuestion extends State<QuizQuestion> {
   void onDelete(Question question) {
-    var result = Provider.of<QuestionProvider>(context, listen: false)
+    Provider.of<QuestionProvider>(context, listen: false)
         .deleteQuestion(question);
+
+    final ContentModel _content = Provider.of<ContentProvider>(context)
+        .getContentByContentID(question.topicId);
+
+    Navigator.of(context).pushNamed(ViewQuestion.routeName,
+        arguments: RouteArguments(
+            question.id, _content.title.toString(), question.topicId));
   }
 
   @override
@@ -151,7 +162,13 @@ class _QuizQuestion extends State<QuizQuestion> {
                         Navigator.of(context).pushNamed(
                           AddQuestion.routeName,
                           arguments: RouteArguments(
-                              widget.question.id, ' ', widget.question.topicId),
+                              widget.question.id,
+                              Provider.of<ContentProvider>(context)
+                                  .getContentByContentID(
+                                      widget.question.topicId)
+                                  .title
+                                  .toString(),
+                              widget.question.topicId),
                         );
                       },
                       color: const Color(0xffE78230),
