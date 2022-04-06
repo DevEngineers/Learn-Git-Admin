@@ -46,7 +46,7 @@ class QuestionService {
   }
 
   Future<bool?> updateQuestion(Question question) async {
-    final response = await put(Uri.parse(endpoint),
+    final response = await put(Uri.parse(endpoint + '/' + question.id),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -56,20 +56,20 @@ class QuestionService {
     if (response.statusCode == 200) {
       return true;
     }
-    throw Exception('Error in updating the answers');
+    throw Exception('Error in updating the question');
   }
 
-  Future<bool?> deleteQuestionByID(String questionID) async {
-    final response = await delete(Uri.parse(endpoint),
+  Future<bool?> deleteQuestionByID(Question question) async {
+    final response = await delete(Uri.parse(endpoint + '/' + question.id),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
         },
-        body: json.encode(questionID));
+        body: json.encode(question));
 
     if (response.statusCode == 200) {
       return true;
     }
-    throw Exception('Error in getting the age');
+    throw Exception('Error in getting the delete question');
   }
 }
