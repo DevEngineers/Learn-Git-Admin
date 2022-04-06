@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/home.dart';
 import 'package:provider/provider.dart';
+import '../providers/content_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -26,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initializeProviders() {
     // Add providers here to initialize them.
     Provider.of<QuestionProvider>(context);
+    Provider.of<ContentProvider>(context);
   }
 
   @override
@@ -41,13 +43,24 @@ class _SplashScreenState extends State<SplashScreen> {
               './lib/assets/images/git.png',
               width: 180,
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: Text('Learn Git',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold)),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: RichText(
+                text: TextSpan(children: [
+                  const TextSpan(
+                      text: "Learn",
+                      style: TextStyle(
+                          color: Color(0xffE78230),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32)),
+                  TextSpan(
+                      text: "Git",
+                      style: TextStyle(
+                          color: Colors.green[400],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32)),
+                ]),
+              ),
             )
           ]),
     ));

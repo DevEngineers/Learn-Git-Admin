@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:learn_git_admin/screens/content_view.dart';
 import 'package:learn_git_admin/screens/question_home.dart';
+import 'package:provider/provider.dart';
 import '../components/custom_text.dart';
+import '../providers/content_provider.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = '/home';
@@ -13,9 +16,26 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    int tutorialCount = Provider.of<ContentProvider>(context).contents.length;
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          title: RichText(
+            text: TextSpan(children: [
+              const TextSpan(
+                  text: "Learn",
+                  style: TextStyle(
+                      color: Color(0xffE78230),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+              TextSpan(
+                  text: "Git",
+                  style: TextStyle(
+                      color: Colors.green[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+            ]),
+          ),
           automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
@@ -24,15 +44,20 @@ class _Home extends State<Home> {
             children: [
               const Padding(
                   padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
-                  child: Text('Learn Git Admin',
+                  child: Text('LearnGit Admin',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 32,
                           fontWeight: FontWeight.bold))),
               MenuItem(
                   title: 'Tutorial Content',
-                  body: '5 tutorials',
-                  onPress: () {}),
+                  body: '${tutorialCount.toString()} tutorials',
+                  onPress: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ContentView()));
+                  }),
               MenuItem(
                   title: 'Tutorial Questions',
                   body: '5 Questions',
