@@ -44,10 +44,10 @@ class _ViewQuestion extends State<ViewQuestion> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-                padding: EdgeInsets.all(8),
+            Padding(
+                padding: const EdgeInsets.all(8),
                 child: CustomText(
-                  text: 'Learn Basic Git',
+                  text: topic,
                   type: 'headText',
                 )),
             ListView.builder(
