@@ -41,9 +41,8 @@ class APIService {
   ) async {
     if (isEditMode) {
       final response = await client.put(
-          Uri.parse(endpoint + "/" + productsAPI).replace(queryParameters: {
-            "id": model.id.toString(),
-          }),
+          Uri.parse(
+              '$endpoint/$productsAPI/${model.id.toString()}'),
           headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json',
@@ -78,9 +77,7 @@ class APIService {
     };
 
     var response = await client.delete(
-      Uri.parse(endpoint + "/" + productsAPI).replace(queryParameters: {
-        "id": productId,
-      }),
+      Uri.parse('$endpoint/$productsAPI/$productId'),
       headers: requestHeaders,
     );
 
