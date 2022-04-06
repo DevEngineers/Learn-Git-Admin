@@ -3,7 +3,7 @@ import 'package:learn_git_admin/components/button.dart';
 import 'package:learn_git_admin/components/custom_text.dart';
 import 'package:learn_git_admin/model/question.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
-import 'package:learn_git_admin/provider/question_provider.dart';
+import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:learn_git_admin/components/custom_text_field.dart';
 
@@ -148,7 +148,7 @@ class _AddQuestion extends State<AddQuestion> {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(2, 8, 2, 10),
                               child: CustomTextField(
-                                controller: _answerController[index],
+                                controller: _correctAnswerController,
                                 label: "Answers ${index + 1}",
                                 maxLine: 1,
                                 minLine: 1,

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:learn_git_admin/provider/question_provider.dart';
+import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/home.dart';
 import 'package:provider/provider.dart';
 
