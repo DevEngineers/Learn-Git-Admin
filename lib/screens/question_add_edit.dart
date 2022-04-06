@@ -21,8 +21,10 @@ class AddQuestion extends StatefulWidget {
 class _AddQuestion extends State<AddQuestion> {
   final _formKey = GlobalKey<FormState>();
   List<ContentModel> _content = [];
+  String? valueTopicID;
   String _question = '';
   List<dynamic> _answer = [];
+  List<dynamic> _storedAnswers = [];
   String _correctAnswer = '';
   String _questionID = '';
   String _topicID = '';
@@ -39,11 +41,9 @@ class _AddQuestion extends State<AddQuestion> {
       final ContentModel content = Provider.of<ContentProvider>(context)
           .getContentByContentID(arg.topicId);
 
-      print("QUESTION : ${qus.answers}");
-
       setState(() {
         _question = qus.question;
-        _answer = qus.answers;
+        _storedAnswers = qus.answers;
         _correctAnswer = qus.correctAnswer;
         _questionID = arg.questionId;
         _topicID = qus.topicId;
@@ -56,21 +56,31 @@ class _AddQuestion extends State<AddQuestion> {
     _content = Provider.of<ContentProvider>(context).contents.toList();
   }
 
-  String? valueTopicID;
-
   void onSubmit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      Question question = Question(
-          id: '',
-          topicId: valueTopicID.toString(),
-          question: _question,
-          answers: _answer,
-          correctAnswer: _correctAnswer);
+      if (_questionID == '') {
+        Question question = Question(
+            id: '',
+            topicId: valueTopicID.toString(),
+            question: _question,
+            answers: _answer,
+            correctAnswer: _correctAnswer);
 
-      Provider.of<QuestionProvider>(context, listen: false)
-          .addQuestion(question);
+        Provider.of<QuestionProvider>(context, listen: false)
+            .addQuestion(question);
+      } else {
+        Question question = Question(
+            id: _questionID,
+            topicId: _topicID,
+            question: _question,
+            answers: _answer,
+            correctAnswer: _correctAnswer);
+
+        Provider.of<QuestionProvider>(context, listen: false)
+            .updateQuestion(question);
+      }
     }
   }
 
@@ -80,7 +90,8 @@ class _AddQuestion extends State<AddQuestion> {
     getContents();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Question')),
+      appBar: AppBar(
+          title: Text(_questionID == '' ? 'Question' : 'Update Question')),
       body: ListView(
         shrinkWrap: true,
         padding: const EdgeInsets.all(15.0),
@@ -152,7 +163,7 @@ class _AddQuestion extends State<AddQuestion> {
                               child: CustomTextField(
                                 initialValue: _questionID == ''
                                     ? ''
-                                    : _answer[index].toString(),
+                                    : _storedAnswers.elementAt(index),
                                 label: "Answers ${index + 1}",
                                 maxLine: 1,
                                 minLine: 1,
