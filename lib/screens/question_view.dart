@@ -163,11 +163,7 @@ class _QuizQuestion extends State<QuizQuestion> {
                           AddQuestion.routeName,
                           arguments: RouteArguments(
                               widget.question.id,
-                              Provider.of<ContentProvider>(context)
-                                  .getContentByContentID(
-                                      widget.question.topicId)
-                                  .title
-                                  .toString(),
+                              ' ',
                               widget.question.topicId),
                         );
                       },
