@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_git_admin/screens/content_view.dart';
+import 'package:learn_git_admin/screens/view-profile.dart';
 import 'package:provider/provider.dart';
 import '../components/custom_text.dart';
 import '../providers/content_provider.dart';
@@ -19,24 +20,34 @@ class _Home extends State<Home> {
 
     return Scaffold(
         appBar: AppBar(
-          title: RichText(
-            text: TextSpan(children: [
-              const TextSpan(
-                  text: "Learn",
-                  style: TextStyle(
-                      color: Color(0xffE78230),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22)),
-              TextSpan(
-                  text: "Git",
-                  style: TextStyle(
-                      color: Colors.green[400],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22)),
+            title: RichText(
+              text: TextSpan(children: [
+                const TextSpan(
+                    text: "Learn",
+                    style: TextStyle(
+                        color: Color(0xffE78230),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22)),
+                TextSpan(
+                    text: "Git",
+                    style: TextStyle(
+                        color: Colors.green[400],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22)),
+              ]),
+            ),
+            automaticallyImplyLeading: false,
+            actions: [
+              IconButton(
+                icon: const Icon(
+                  Icons.account_circle_rounded,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(ViewProfile.routeName);
+                },
+              ),
             ]),
-          ),
-          automaticallyImplyLeading: false,
-        ),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +72,6 @@ class _Home extends State<Home> {
                   title: 'Tutorial Questions',
                   body: '5 Questions',
                   onPress: () {}),
-              MenuItem(title: 'Users', body: '5 Users', onPress: () {})
             ],
           ),
         ));

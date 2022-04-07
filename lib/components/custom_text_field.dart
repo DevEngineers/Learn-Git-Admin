@@ -2,28 +2,40 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
-  final int? maxLine;
-  final int? minLine;
   final Function onChange;
-
+  final String? value;
+  final bool? enableObscureText;
+  final bool? isEnable;
   const CustomTextField({
     Key? key,
     required this.label,
     required this.onChange,
-    this.maxLine,
-    this.minLine,
+    this.value,
+    this.enableObscureText,
+    this.isEnable,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        initialValue: value,
+        enabled: isEnable,
+        obscureText: enableObscureText ?? false,
         decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.never,
           border: const OutlineInputBorder(),
-          // helperText: label,
           labelText: label,
+          fillColor: Colors.white,
+          filled: true,
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white, width: 2.0),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white, width: 2.0),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
         ),
-        minLines: minLine,
-        maxLines: maxLine,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Please Enter " + label;
