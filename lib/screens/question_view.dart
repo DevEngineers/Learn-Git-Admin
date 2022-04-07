@@ -5,6 +5,7 @@ import 'package:learn_git_admin/model/route_arguments.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
 import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/question_add_edit.dart';
+import 'package:learn_git_admin/screens/question_home.dart';
 import 'package:provider/provider.dart';
 import '../components/custom_text.dart';
 import '../model/question.dart';
@@ -40,7 +41,20 @@ class _ViewQuestion extends State<ViewQuestion> {
         Provider.of<QuestionProvider>(context).getQuestionsByTopic(topicId);
 
     return Scaffold(
-        appBar: AppBar(title: const Text('Questions')),
+        appBar: AppBar(
+          title: const Text('Questions'),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(QuestionHome.routeName);
+              },
+            )
+          ],
+        ),
         body: SingleChildScrollView(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -87,15 +101,49 @@ class QuizQuestion extends StatefulWidget {
 
 class _QuizQuestion extends State<QuizQuestion> {
   void onDelete(Question question) {
-    Provider.of<QuestionProvider>(context, listen: false)
-        .deleteQuestion(question);
+    if (question != null) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text("Learn Git"),
+          content: const Text('Are You sure to Delete.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                onPressed: () {
+                  Provider.of<QuestionProvider>(context, listen: false)
+                      .deleteQuestion(question);
 
-    final ContentModel _content = Provider.of<ContentProvider>(context)
-        .getContentByContentID(question.topicId);
+                  final ContentModel _content =
+                      Provider.of<ContentProvider>(context)
+                          .getContentByContentID(question.topicId);
 
-    Navigator.of(context).pushNamed(ViewQuestion.routeName,
-        arguments: RouteArguments(
-            question.id, _content.title.toString(), question.topicId));
+                  Navigator.of(context).pushNamed(ViewQuestion.routeName,
+                      arguments: RouteArguments(question.id,
+                          _content.title.toString(), question.topicId));
+                },
+                child: const Text("Delete")),
+          ],
+        ),
+      );
+    } else {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text("Learn Git"),
+          content: const Text('Something went wrong.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override

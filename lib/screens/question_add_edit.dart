@@ -6,6 +6,7 @@ import 'package:learn_git_admin/model/question.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
 import 'package:learn_git_admin/providers/question_provider.dart';
+import 'package:learn_git_admin/screens/question_home.dart';
 import 'package:learn_git_admin/screens/question_view.dart';
 import 'package:provider/provider.dart';
 import 'package:learn_git_admin/components/custom_text_field.dart';
@@ -62,30 +63,74 @@ class _AddQuestion extends State<AddQuestion> {
       _formKey.currentState!.save();
 
       if (_questionID == '') {
-        Question question = Question(
-            id: '',
-            topicId: valueTopicID.toString(),
-            question: _question,
-            answers: _answer,
-            correctAnswer: _correctAnswer);
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text("Learn Git"),
+            content: const Text('Are You sure to Submit.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  _answer = [];
+                  Navigator.pop(context, 'Cancel');
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                  onPressed: () {
+                    Question question = Question(
+                        id: '',
+                        topicId: valueTopicID.toString(),
+                        question: _question,
+                        answers: _answer,
+                        correctAnswer: _correctAnswer);
 
-        Provider.of<QuestionProvider>(context, listen: false)
-            .addQuestion(question);
-        Navigator.of(context).pushNamed(ViewQuestion.routeName,
-            arguments:
-                RouteArguments(_questionID, _topic, valueTopicID.toString()));
+                    Provider.of<QuestionProvider>(context, listen: false)
+                        .addQuestion(question);
+                    Navigator.of(context).pushNamed(ViewQuestion.routeName,
+                        arguments: RouteArguments(
+                            _questionID, _topic, valueTopicID.toString()));
+                  },
+                  child: const Text("Submit")),
+            ],
+          ),
+        );
       } else {
-        Question question = Question(
-            id: _questionID,
-            topicId: _topicID,
-            question: _question,
-            answers: _answer,
-            correctAnswer: _correctAnswer);
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text("Learn Git"),
+            content: const Text('Are You sure to Update.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  _answer = [];
+                  // Navigator.pop(context, 'Cancel');
+                  Navigator.of(context).pushNamed(ViewQuestion.routeName,
+                      arguments: RouteArguments(_questionID, _topic, _topicID));
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                  onPressed: () {
+                    Question question = Question(
+                        id: _questionID,
+                        topicId: _topicID,
+                        question: _question,
+                        answers: _answer,
+                        correctAnswer: _correctAnswer);
 
-        Provider.of<QuestionProvider>(context, listen: false)
-            .updateQuestion(question);
-        Navigator.of(context).pushNamed(ViewQuestion.routeName,
-            arguments: RouteArguments(_questionID, _topic, _topicID));
+                    Provider.of<QuestionProvider>(context, listen: false)
+                        .updateQuestion(question);
+
+                    Navigator.of(context).pushNamed(ViewQuestion.routeName,
+                        arguments:
+                            RouteArguments(_questionID, _topic, _topicID));
+                  },
+                  child: const Text("Update")),
+            ],
+          ),
+        );
       }
     }
   }
@@ -97,7 +142,19 @@ class _AddQuestion extends State<AddQuestion> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text(_questionID == '' ? 'Question' : 'Update Question')),
+        title: Text(_questionID == '' ? 'Question' : 'Update Question'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.of(context).pushNamed(QuestionHome.routeName);
+            },
+          )
+        ],
+      ),
       body: ListView(
         shrinkWrap: true,
         padding: const EdgeInsets.all(15.0),
