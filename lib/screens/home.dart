@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/content_view.dart';
+import 'package:learn_git_admin/screens/question_home.dart';
 import 'package:provider/provider.dart';
 import '../components/custom_text.dart';
 import '../providers/content_provider.dart';
@@ -16,6 +18,7 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     int tutorialCount = Provider.of<ContentProvider>(context).contents.length;
+    int questionCount = Provider.of<QuestionProvider>(context).questions.length;
 
     return Scaffold(
         appBar: AppBar(
@@ -59,8 +62,10 @@ class _Home extends State<Home> {
                   }),
               MenuItem(
                   title: 'Tutorial Questions',
-                  body: '5 Questions',
-                  onPress: () {}),
+                  body: '${questionCount.toString()} Questions',
+                  onPress: () {
+                    Navigator.of(context).pushNamed(QuestionHome.routeName);
+                  }),
               MenuItem(title: 'Users', body: '5 Users', onPress: () {})
             ],
           ),

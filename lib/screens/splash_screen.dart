@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/home.dart';
 import 'package:provider/provider.dart';
 import '../providers/content_provider.dart';
@@ -25,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initializeProviders() {
     // Add providers here to initialize them.
+    Provider.of<QuestionProvider>(context);
     Provider.of<ContentProvider>(context);
   }
 

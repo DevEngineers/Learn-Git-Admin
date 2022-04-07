@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
+import 'package:learn_git_admin/providers/question_provider.dart';
 import 'package:learn_git_admin/screens/content.dart';
 import 'package:learn_git_admin/screens/content_add_edit.dart';
 import 'package:learn_git_admin/screens/content_list.dart';
 import 'package:learn_git_admin/screens/content_view.dart';
+import 'package:learn_git_admin/screens/question_home.dart';
 import 'package:learn_git_admin/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
-
 import 'screens/home.dart';
+import 'screens/question_add_edit.dart';
+import 'screens/question_view.dart';
 
 void main() async {
   await dotenv.load();
@@ -26,6 +29,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<ContentProvider>(
             create: (context) => ContentProvider(),
           ),
+          ChangeNotifierProvider<QuestionProvider>(
+            create: (context) => QuestionProvider(),
+          ),
         ],
         child: MaterialApp(
           title: 'CTSE Flutter Project',
@@ -37,6 +43,9 @@ class MyApp extends StatelessWidget {
           routes: {
             SplashScreen.routeName: ((context) => const SplashScreen()),
             Home.routeName: ((context) => const Home()),
+            AddQuestion.routeName: ((context) => const AddQuestion()),
+            ViewQuestion.routeName: ((context) => const ViewQuestion()),
+            QuestionHome.routeName: ((context) => const QuestionHome()),
             ContentList.routeName: (context) => const ContentList(),
             ContentView.routeName: (context) => const ContentView(),
             ProductAddEdit.routeNameAdd: (context) => const ProductAddEdit(),
