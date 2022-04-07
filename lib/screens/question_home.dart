@@ -4,6 +4,7 @@ import 'package:learn_git_admin/model/content_model.dart';
 import 'package:learn_git_admin/model/route_arguments.dart';
 import 'package:learn_git_admin/providers/content_provider.dart';
 import 'package:learn_git_admin/providers/question_provider.dart';
+import 'package:learn_git_admin/screens/home.dart';
 import 'package:learn_git_admin/screens/question_add_edit.dart';
 import 'package:learn_git_admin/screens/question_view.dart';
 import 'package:provider/provider.dart';
@@ -27,9 +28,22 @@ class _QuestionHome extends State<QuestionHome> {
   Widget build(BuildContext context) {
     final Set<ContentModel> _content =
         Provider.of<ContentProvider>(context).contents;
-    // print("QUESTION HOME CONTENT : $_content");
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Tutorial Questions')),
+      appBar: AppBar(
+        title: const Text('Tutorial Questions'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.of(context).pushNamed(Home.routeName);
+            },
+          )
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -111,7 +125,6 @@ class QuestionMenuItem extends StatelessWidget {
         Provider.of<QuestionProvider>(context).getQuestionsByTopic(body).length;
     return SizedBox(
       width: width,
-      // height: 150,
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: Card(
