@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.learn_git_admin">
    <application
-        android:label="learn_git_admin"
+        android:label="Learn Git Admin"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

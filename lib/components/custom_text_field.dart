@@ -6,6 +6,9 @@ class CustomTextField extends StatelessWidget {
   final String? value;
   final bool? enableObscureText;
   final bool? isEnable;
+  final int? maxLine;
+  final int? minLine;
+
   const CustomTextField({
     Key? key,
     required this.label,
@@ -13,6 +16,8 @@ class CustomTextField extends StatelessWidget {
     this.value,
     this.enableObscureText,
     this.isEnable,
+    this.maxLine,
+    this.minLine,
   }) : super(key: key);
 
   @override

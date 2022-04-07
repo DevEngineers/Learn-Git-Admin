@@ -16,4 +16,8 @@ class ContentProvider extends ChangeNotifier {
     _contents.addAll(content!);
     notifyListeners();
   }
+
+  ContentModel getContentByContentID(String contentID) {
+    return _contents.singleWhere((element) => element.id == contentID);
+  }
 }
