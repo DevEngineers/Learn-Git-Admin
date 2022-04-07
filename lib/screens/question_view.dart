@@ -162,9 +162,7 @@ class _QuizQuestion extends State<QuizQuestion> {
                         Navigator.of(context).pushNamed(
                           AddQuestion.routeName,
                           arguments: RouteArguments(
-                              widget.question.id,
-                              ' ',
-                              widget.question.topicId),
+                              widget.question.id, ' ', widget.question.topicId),
                         );
                       },
                       color: const Color(0xffE78230),
