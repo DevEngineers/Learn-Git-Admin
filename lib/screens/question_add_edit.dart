@@ -149,7 +149,7 @@ class _AddQuestion extends State<AddQuestion> {
                       Padding(
                           padding: const EdgeInsets.fromLTRB(2, 0, 2, 10),
                           child: CustomTextField(
-                            initialValue: _question,
+                            value: _question,
                             label: "Question",
                             maxLine: 2,
                             minLine: 1,
@@ -167,7 +167,7 @@ class _AddQuestion extends State<AddQuestion> {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(2, 8, 2, 10),
                               child: CustomTextField(
-                                initialValue: _questionID == ''
+                                value: _questionID == ''
                                     ? ''
                                     : _storedAnswers.elementAt(index),
                                 label: "Answers ${index + 1}",
@@ -184,7 +184,7 @@ class _AddQuestion extends State<AddQuestion> {
                       Padding(
                           padding: const EdgeInsets.fromLTRB(2, 8, 2, 10),
                           child: CustomTextField(
-                            initialValue: _correctAnswer,
+                            value: _correctAnswer,
                             label: "Correct Answer ",
                             minLine: 1,
                             maxLine: 1,
