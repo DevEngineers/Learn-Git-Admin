@@ -114,12 +114,12 @@ class _QuizQuestion extends State<QuizQuestion> {
             ),
             TextButton(
                 onPressed: () {
+                  final ContentModel _content =
+                      Provider.of<ContentProvider>(context, listen: false)
+                          .getContentByContentID(question.topicId);
+
                   Provider.of<QuestionProvider>(context, listen: false)
                       .deleteQuestion(question);
-
-                  final ContentModel _content =
-                      Provider.of<ContentProvider>(context)
-                          .getContentByContentID(question.topicId);
 
                   Navigator.of(context).pushNamed(ViewQuestion.routeName,
                       arguments: RouteArguments(question.id,
